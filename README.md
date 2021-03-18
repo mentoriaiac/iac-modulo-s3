@@ -26,7 +26,7 @@ Módulo s3 para criação e manutenção de bucket na AWS S3.
 | bucket\_name | Nome do bucket | `string` | n/a | yes |
 | acl | [ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) que será aplicada ao bucket | `string` | `"private"` | no |
 
-## Utilização
+## Como utilizar o módulo
 
 - Criação de um bucket com ACL _private_
 
