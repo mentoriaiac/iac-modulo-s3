@@ -54,3 +54,11 @@ Mais exemplos de utilização podem ser encontrados no diretório [_examples/_](
 |------|-------------|
 | this\_s3\_bucket\_id | ID do bucket criado |
 | this\_s3\_bucket\_region | Região AWS na qual foi criado o bucket |
+
+## TODO
+
+- [ ] Criar novos recursos no módulo (policy, tags, etc)
+- [ ] Adicionar mais exemplos (cenários de utilização do módulo)
+- [ ] Adicionar mais testes em cada cenário de utilização
+- [ ] Criar pipeline CI com testes automatizados (terratest + localstack)
+
