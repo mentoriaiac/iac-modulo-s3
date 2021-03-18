@@ -46,6 +46,7 @@ module "s3_bucket" {
   acl         = "public-read"
 }
 ```
+Mais exemplos de utilização podem ser encontrados no diretório [_examples/_](examples/).
 
 ## _Outputs_
 
