@@ -9,6 +9,6 @@ provider "aws" {
 
   endpoints {
     # To test on your local machine use localhost
-    s3 = "http://localstack:4566"
+    s3 = "http://localhost:4566"
   }
 }
