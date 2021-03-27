@@ -9,6 +9,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          apt update && apt install make -y
       - name: Start localstack
         run: |
           make localstack-start
