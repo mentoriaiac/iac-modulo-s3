@@ -1,0 +1,17 @@
+name: RunTest
+
+on: push
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    container: ubuntu:20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Start localstack
+        run: |
+          make localstack-start
+      - name: Run the tests
+        run: |
+          make test
