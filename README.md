@@ -5,13 +5,14 @@ Módulo s3 para criação e manutenção de bucket na AWS S3.
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.27 |
+| terraform | >= 0.14.0 |
+| aws | >= 3.27 |
 
 ## _Providers_
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.27 |
+| aws | >= 3.27 |
 
 ## Recursos
 
