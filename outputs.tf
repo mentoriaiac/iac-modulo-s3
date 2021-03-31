@@ -10,7 +10,7 @@ output "this_s3_bucket_region" {
 
 output "this_s3_bucket_acl" {
   value       = aws_s3_bucket.my_bucket.acl
-  description = "The aws region of this bucket"
+  description = "The acl applied to this bucket"
 }
 
 
