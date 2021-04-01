@@ -27,6 +27,13 @@ Módulo s3 para criação e manutenção de bucket na AWS S3.
 | bucket\_name | Nome do bucket | `string` | n/a | yes |
 | acl | [ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) que será aplicada ao bucket | `string` | `"private"` | no |
 
+## _Outputs_
+
+| Name | Description |
+|------|-------------|
+| this\_s3\_bucket\_id | ID do bucket criado |
+| this\_s3\_bucket\_region | Região AWS na qual foi criado o bucket |
+
 ## Como utilizar o módulo
 
 No diretório [_examples/_](examples/) podem ser encontrados exemplos de utilização, incluindo instruções de como executá-los.
@@ -53,13 +60,6 @@ $ make localtest-private-bucket # Executa teste de criação de um bucket privad
 $ make localtest-public-bucket # Executa teste de criação de um bucket público
 ```
 É necessário ter o `Go >= 1.15` e `Docker >= 20.10.5` para execução dos testes localmente.
-
-## _Outputs_
-
-| Name | Description |
-|------|-------------|
-| this\_s3\_bucket\_id | ID do bucket criado |
-| this\_s3\_bucket\_region | Região AWS na qual foi criado o bucket |
 
 ## TODO
 
