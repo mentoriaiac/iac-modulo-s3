@@ -22,8 +22,8 @@ $ make terraform-destroy-private-bucket
 
 | Nome | Versão |
 |------|---------|
-| terraform | >= 0.14.0 |
-| aws | >= 3.27 |
+| GNU make | >= 4.2.1 |
+| docker | >= 20.10.5 |
 
 ## _Providers_
 
