@@ -29,6 +29,10 @@ Módulo s3 para criação e manutenção de bucket na AWS S3.
 
 ## Como utilizar o módulo
 
+No diretório [_examples/_](examples/) podem ser encontrados exemplos de utilização, incluindo instruções de como executá-los.
+
+Mas para adiantar um exemplo simples, a utilização do módulo pode ser feita da seguinte maneira:
+
 - Criação de um bucket com ACL _private_
 
 ```hcl
@@ -38,16 +42,17 @@ module "s3_bucket" {
 }
 ```
 
-- Criação de um bucket com ACL _public-read_
+## Como testar o módulo
 
-```hcl
-module "s3_bucket" {
-  source      = "github.com/marcelomansur/iac-modulo-s3"
-  bucket_name = "my-public-bucket"
-  acl         = "public-read"
-}
+No diretório [_tests/_](tests/) podem ser encontrados os testes automatizados do módulos, usando terratest + localstack.
+
+Para testar, executar comandos pelo Makefile:
+
 ```
-Mais exemplos de utilização podem ser encontrados no diretório [_examples/_](examples/).
+$ make localtest-private-bucket # Executa teste de criação de um bucket privado
+$ make localtest-public-bucket # Executa teste de criação de um bucket público
+```
+É necessário ter o `Go >= 1.15` e `Docker >= 20.10.5` para execução dos testes localmente.
 
 ## _Outputs_
 
