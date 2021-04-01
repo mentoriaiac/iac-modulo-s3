@@ -12,10 +12,10 @@ AWS_SECRET_ACCESS_KEY=<sua_chave_aqui>
 Também na raiz do projeto, executar os comandos Makefile relacionados ao exemplo:
 
 ```
-$ terraform-init-private-bucket
-$ terraform-plan-private-bucket
-$ terraform-apply-private-bucket
-$ terraform-destroy-private-bucket
+$ make terraform-init-private-bucket
+$ make terraform-plan-private-bucket
+$ make terraform-apply-private-bucket
+$ make terraform-destroy-private-bucket
 ```
 
 ## Requisitos
