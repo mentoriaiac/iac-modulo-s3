@@ -5,13 +5,14 @@ Módulo s3 para criação e manutenção de bucket na AWS S3.
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.27 |
+| terraform | >= 0.14.0 |
+| aws | >= 3.27 |
 
 ## _Providers_
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.27 |
+| aws | >= 3.27 |
 
 ## Recursos
 
@@ -26,7 +27,18 @@ Módulo s3 para criação e manutenção de bucket na AWS S3.
 | bucket\_name | Nome do bucket | `string` | n/a | yes |
 | acl | [ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) que será aplicada ao bucket | `string` | `"private"` | no |
 
+## _Outputs_
+
+| Name | Description |
+|------|-------------|
+| this\_s3\_bucket\_id | ID do bucket criado |
+| this\_s3\_bucket\_region | Região AWS na qual foi criado o bucket |
+
 ## Como utilizar o módulo
+
+No diretório [_examples/_](examples/) podem ser encontrados exemplos de utilização, incluindo instruções de como executá-los.
+
+Mas para adiantar um exemplo simples, a utilização do módulo pode ser feita da seguinte maneira:
 
 - Criação de um bucket com ACL _private_
 
@@ -37,23 +49,17 @@ module "s3_bucket" {
 }
 ```
 
-- Criação de um bucket com ACL _public-read_
+## Como testar o módulo
 
-```hcl
-module "s3_bucket" {
-  source      = "github.com/marcelomansur/iac-modulo-s3"
-  bucket_name = "my-public-bucket"
-  acl         = "public-read"
-}
+No diretório [_tests/_](tests/) podem ser encontrados os testes automatizados do módulos, usando terratest + localstack.
+
+Para testar, executar comandos pelo Makefile:
+
 ```
-Mais exemplos de utilização podem ser encontrados no diretório [_examples/_](examples/).
-
-## _Outputs_
-
-| Name | Description |
-|------|-------------|
-| this\_s3\_bucket\_id | ID do bucket criado |
-| this\_s3\_bucket\_region | Região AWS na qual foi criado o bucket |
+$ make localtest-private-bucket # Executa teste de criação de um bucket privado
+$ make localtest-public-bucket # Executa teste de criação de um bucket público
+```
+É necessário ter o `Go >= 1.15` e `Docker >= 20.10.5` para execução dos testes localmente.
 
 ## TODO
 
