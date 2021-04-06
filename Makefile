@@ -22,7 +22,6 @@ hp: ## This help.
 #
 # Functions
 #
-# Terraform fmt
 terraform-fmt = docker run --rm -v $$PWD:/app -w /app/$(1) -e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY hashicorp/terraform:$(TERRAFORM_VERSION) fmt -check
 # Terraform init
 terraform-init = docker run --rm -v $$PWD:/app -w /app/$(1) -e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY hashicorp/terraform:$(TERRAFORM_VERSION) init
@@ -35,21 +34,29 @@ terraform-apply = docker run --rm -v $$PWD:/app -w /app/$(1) -e AWS_ACCESS_KEY_I
 # Terraform destroy
 terraform-destroy = docker run --rm -v $$PWD:/app -w /app/$(1) -e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY hashicorp/terraform:$(TERRAFORM_VERSION) destroy -auto-approve
 #
-# Private bucket
-#
 # Run static validations
 #
-terraform-fmt-private-bucket: ## Private bucket example - Run command 'terraform fmt -check'
-	  $(call terraform-fmt,$(PRIVATE_EXAMPLE_DIR))
-
-terraform-init-private-bucket: ## Private bucket example - Run command 'terraform init'
-	  $(call terraform-init,$(PRIVATE_EXAMPLE_DIR))
-
-terraform-validate-private-bucket: ## Private bucket example - Run command 'terraform validate'
-	  $(call terraform-validate,$(PRIVATE_EXAMPLE_DIR))
+# Terraform fmt
+terraform-fmt: ## Run command 'terraform fmt -check'
+	  docker run --rm -v $$PWD:/app -e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY hashicorp/terraform:$(TERRAFORM_VERSION) fmt -check
+# Terraform init
+terraform-init: ## Run command 'terraform init'
+	  docker run --rm -v $$PWD:/app -e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY hashicorp/terraform:$(TERRAFORM_VERSION) init
+# Terraform validate
+terraform-validate: ## Run command 'terraform validate'
+	  docker run --rm -v $$PWD:/app -e AWS_DEFAULT_REGION="us-east-1" -e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY hashicorp/terraform:$(TERRAFORM_VERSION) validate
+#
+# Run unit tests
+#
+unit-tests: terraform-fmt terraform-init terraform-validate ## Run unit tests (terraform fmt and validate)
 #
 # Run examples on a real AWS environment
 #
+# Private bucket
+#
+terraform-init-private-bucket: ## Private bucket example - Run command 'terraform init'
+	  $(call terraform-init,$(PRIVATE_EXAMPLE_DIR))
+
 terraform-plan-private-bucket: ## Private bucket example - Exec a terraform plan and puts it on a file called tfplan
 	  $(call terraform-plan,$(PRIVATE_EXAMPLE_DIR))
 
@@ -61,19 +68,9 @@ terraform-destroy-private-bucket: ## Private bucket example - Destroy all resour
 #
 # Public bucket
 #
-# Run static validations
-#
-terraform-fmt-public-bucket: ## Public bucket example - Run command 'terraform fmt -check'
-	  $(call terraform-fmt,$(PUBLIC_EXAMPLE_DIR))
-
 terraform-init-public-bucket: ## Public bucket example - Run command 'terraform init'
 	  $(call terraform-init,$(PUBLIC_EXAMPLE_DIR))
 
-terraform-validate-public-bucket: ## Public bucket example - Run command 'terraform validate'
-	  $(call terraform-validate,$(PUBLIC_EXAMPLE_DIR))
-#
-# Run examples on a real AWS environment
-#
 terraform-plan-public-bucket: ## Public bucket example - Exec a terraform plan and puts it on a file called tfplan
 	  $(call terraform-plan,$(PUBLIC_EXAMPLE_DIR))
 
@@ -82,10 +79,6 @@ terraform-apply-public-bucket: ## Public bucket example - Uses tfplan to apply t
 
 terraform-destroy-public-bucket: ## Public bucket example - Destroy all resources created by the terraform file in this repo.
 	  $(call terraform-destroy,$(PUBLIC_EXAMPLE_DIR))
-#
-# Run unit tests
-#
-unit-tests: terraform-fmt-private-bucket terraform-init-private-bucket terraform-validate-private-bucket ## Run unit tests (terraform fmt and validate)
 #
 # Run integration tests
 #
