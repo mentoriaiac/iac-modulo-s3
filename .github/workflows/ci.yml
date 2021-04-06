@@ -9,7 +9,7 @@ on:
 
 jobs:
   terraform:
-    name: "Terraform"
+    name: "Unit Tests"
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +26,9 @@ jobs:
         id: fmt
         run: terraform fmt -check
 
-      - name: Unit Tests (Terraform Validate)
+      - name: Terraform Validate
         id: validate
         # if: github.event_name == 'pull_request'
-        working-directory: examples/private-bucket
         run: terraform init && terraform validate -no-color
+        env:
+          AWS_DEFAULT_REGION: "us-east-1"
