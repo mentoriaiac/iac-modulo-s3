@@ -83,30 +83,34 @@ terraform-apply-public-bucket: ## Public bucket example - Uses tfplan to apply t
 terraform-destroy-public-bucket: ## Public bucket example - Destroy all resources created by the terraform file in this repo.
 	  $(call terraform-destroy,$(PUBLIC_EXAMPLE_DIR))
 #
-# Run tests on localstack
+# Run unit tests
 #
-# Single step commands
+unit-tests: terraform-fmt-private-bucket terraform-init-private-bucket terraform-validate-private-bucket ## Run unit tests (terraform fmt and validate)
+#
+# Run integration tests
+#
+# Localstack commands
+#
 localstack-start: ## Start localstack container
 		docker run -d --name $(LOCALSTACK_CONTAINER) --rm -p 4566:4566 -p 4571:4571 localstack/localstack -e "SERVICES=s3"
 
 localstack-stop: ## Stop localstack container
 		docker kill $(LOCALSTACK_CONTAINER)
-
-test-private-bucket: ## Run the private-bucket test command
-		cd $(PRIVATE_TEST_DIR)/ && go test -v -timeout 30m
-
-test-public-bucket: ## Run the public-bucket test command
-		cd $(PUBLIC_TEST_DIR)/ && go test -v -timeout 30m
-
-# Complete tests
+#
 # Private bucket
-localtest-private-bucket: localstack-start ## Run the private-bucket test example on localstack
+#
+localtest-private-bucket: localstack-start ## Private bucket test - Run integration test on localstack
 		sleep 10
 		cd $(PRIVATE_TEST_DIR)/ && go test -v -timeout 30m
 		docker kill $(LOCALSTACK_CONTAINER)
-
+#
 # Public bucket
-localtest-public-bucket: localstack-start ## Run the public-bucket test example on localstack
+#
+localtest-public-bucket: localstack-start ## Public bucket test - Run integration test on localstack
 		sleep 10
 		cd $(PUBLIC_TEST_DIR)/ && go test -v -timeout 30m
 		docker kill $(LOCALSTACK_CONTAINER)
+#
+# Run tests
+#
+integration-tests: localtest-private-bucket ## Run integration tests
