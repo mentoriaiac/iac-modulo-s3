@@ -1,0 +1,33 @@
+name: "Terraform"
+
+on:
+  push:
+    branches:
+      - main
+      - github-ci
+  pull_request:
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.14.0
+          terraform_wrapper: false
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Unit Tests (Terraform Validate)
+        id: validate
+        # if: github.event_name == 'pull_request'
+        working-directory: examples/private-bucket
+        run: terraform init && terraform validate -no-color
