@@ -88,21 +88,21 @@ localstack-start: ## Start localstack container
 		docker run -d --name $(LOCALSTACK_CONTAINER) --rm -p 4566:4566 -p 4571:4571 localstack/localstack -e "SERVICES=s3"
 
 localstack-stop: ## Stop localstack container
-		docker kill $(LOCALSTACK_CONTAINER)
+		docker stop $(LOCALSTACK_CONTAINER)
 #
 # Private bucket
 #
 localtest-private-bucket: localstack-start ## Private bucket test - Run integration test on localstack
 		sleep 10
 		cd $(PRIVATE_TEST_DIR)/ && go test -v -timeout 30m
-		docker kill $(LOCALSTACK_CONTAINER)
+		docker stop $(LOCALSTACK_CONTAINER)
 #
 # Public bucket
 #
 localtest-public-bucket: localstack-start ## Public bucket test - Run integration test on localstack
 		sleep 10
 		cd $(PUBLIC_TEST_DIR)/ && go test -v -timeout 30m
-		docker kill $(LOCALSTACK_CONTAINER)
+		docker stop $(LOCALSTACK_CONTAINER)
 #
 # Run tests
 #
