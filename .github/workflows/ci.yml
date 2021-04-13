@@ -9,7 +9,7 @@ on:
 jobs:
   terraform:
     name: "Unit Tests"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Checkout
@@ -26,9 +26,12 @@ jobs:
         run: terraform fmt -check
         continue-on-error: true
 
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
       - name: Terraform Validate
         id: validate
-        # if: github.event_name == 'pull_request'
-        run: terraform init && terraform validate -no-color
+        run: terraform validate -no-color
         env:
           AWS_DEFAULT_REGION: "us-east-1"
