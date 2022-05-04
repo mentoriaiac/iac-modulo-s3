@@ -72,3 +72,4 @@ $ make localtest-public-bucket # Executa teste de criação de um bucket públic
 - [ ] Adicionar mais exemplos (cenários de utilização do módulo)
 - [ ] Adicionar mais testes em cada cenário de utilização
 - [ ] Criar pipeline CI com testes automatizados (terratest + localstack)
+
