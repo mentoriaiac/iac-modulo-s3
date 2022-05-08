@@ -18,7 +18,7 @@ resource "aws_s3_bucket_acl" "acl_bucket" {
 resource "aws_s3_bucket_versioning" "versioning_example" {
   bucket = aws_s3_bucket.my_bucket.id
   versioning_configuration {
-    status = "Enabled"
+    status = var.versioning_status
   }
 }
 
@@ -26,5 +26,5 @@ resource "aws_s3_bucket_logging" "s3_log" {
   bucket = aws_s3_bucket.my_bucket.id
 
   target_bucket = aws_s3_bucket.my_bucket.id
-  target_prefix = "log/"
+  target_prefix = var.target_prefix
 }
