@@ -1,4 +1,4 @@
-#tfsec:ignore:aws-s3-enable-bucket-encryption #tfsec:ignore:aws-s3-encryption-customer-key #tfsec:ignore:aws-s3-enable-bucket-logging
+#tfsec:ignore:aws-s3-enable-bucket-encryption #tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket" "my_bucket" {
   bucket = var.bucket_name
 }
@@ -15,6 +15,7 @@ resource "aws_s3_bucket_acl" "acl_bucket" {
   acl    = var.acl
 }
 
+#tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket_versioning" "versioning_example" {
   bucket = aws_s3_bucket.my_bucket.id
   versioning_configuration {
