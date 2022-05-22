@@ -5,34 +5,39 @@ Módulo s3 para criação e manutenção de bucket na AWS S3.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.14.0 |
-| aws | >= 3.27 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.27 |
 
 ## _Providers_
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.27 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.75.1 |
 
 ## Recursos
 
-| Name |
-|------|
-| [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) |
+| Name | Type |
+|------|------|
+| [aws_s3_bucket.my_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_acl.acl_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
+| [aws_s3_bucket_logging.s3_log](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_logging) | resource |
+| [aws_s3_bucket_public_access_block.policy_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_versioning.versioning_example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
 
 ## _Inputs_
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| bucket\_name | Nome do bucket | `string` | n/a | yes |
-| acl | [ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl) que será aplicada ao bucket | `string` | `"private"` | no |
+| <a name="input_acl"></a> [acl](#input\_acl) | ACL aplicada ao bucket | `string` | `"private"` | no |
+| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Nome do bucket | `string` | n/a | yes |
 
 ## _Outputs_
 
 | Name | Description |
 |------|-------------|
-| this\_s3\_bucket\_id | ID do bucket criado |
-| this\_s3\_bucket\_region | Região AWS na qual foi criado o bucket |
+| <a name="output_this_s3_bucket_acl"></a> [this\_s3\_bucket\_acl](#output\_this\_s3\_bucket\_acl) | The acl applied to this bucket |
+| <a name="output_this_s3_bucket_id"></a> [this\_s3\_bucket\_id](#output\_this\_s3\_bucket\_id) | The id of this bucket. |
+| <a name="output_this_s3_bucket_region"></a> [this\_s3\_bucket\_region](#output\_this\_s3\_bucket\_region) | The aws region of this bucket |
+
 
 ## Como utilizar o módulo
 
