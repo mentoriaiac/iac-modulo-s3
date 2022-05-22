@@ -1,4 +1,4 @@
-#tfsec:ignore:aws-s3-enable-bucket-encryption #tfsec:ignore:aws-s3-encryption-customer-key
+#tfsec:ignore:aws-s3-enable-bucket-encryption #tfsec:ignore:aws-s3-encryption-customer-key #tfsec:ignore:aws-s3-enable-versioning #tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "my_bucket" {
   bucket = var.bucket_name
 }
