@@ -1,4 +1,4 @@
-# iac-modulo-s3.
+# iac-modulo-s3
 Módulo s3 para criação e manutenção de bucket na AWS S3.
 
 ## Requisitos
